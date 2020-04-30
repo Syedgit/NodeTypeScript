@@ -79,14 +79,12 @@ export class arrayController {
     ]*/
       const result = arr.reduce((acc, d) => {
         const found = acc.find(a => a.id === d.id);
-        //const value = { name: d.name, val: d.value };
         const value = { value: d.value, count: d.count }; // the element in data property
         if (!found) {
           //acc.push(...value);
           acc.push({id:d.id, data: [value]}) // not found, so need to add data property
         }
         else {
-          //acc.push({ name: d.name, data: [{ value: d.value }, { count: d.count }] });
           found.data.push(value) // if found, that means data property exists, so just push new element to found.data.
         }
         return acc;
@@ -96,6 +94,30 @@ export class arrayController {
          data: result
         })
       
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: err.toString(),
+        data: null
+      });
+    }
+  };
+  public static async mapData (req: Request, res: Response): Promise<any>  {
+    // sample data that should be pass to url http://localhost:9001/map
+    let response: any;
+    try {
+      var arr = [{
+        id: 1,
+        name: 'bill'
+      }, {
+        id: 2,
+        name: 'ted'
+      }]
+      const result = arr.map(person => ({ value: person.id, text: person.name }));
+        res.status(200).send({
+          success: true,
+         data: result
+        })
     } catch (err) {
       res.status(500).send({
         success: false,
