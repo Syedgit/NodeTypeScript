@@ -1,25 +1,25 @@
 
   
 import { Request, Response } from 'express';
+import { User } from './user.model'
 
 export class UserController {
   public static async findAll (req: Request, res: Response): Promise<any>  {
     try {
-      // const users = await User.find();
-      // if (!users) {
-      //   return res.status(404).send({
-      //     success: false,
-      //     message: 'Users not found',
-      //     data: null
-      //   });
-      // }
-      const users : any = { test: "hello world"};
+      const users = await User.find();
+      if (!users) {
+        return res.status(404).send({
+          success: false,
+          message: 'Users not found',
+          data: null
+        });
+      }
       res.status(200).send({
         success: true,
         data: users
       });
     } catch (err) {
-      res.status(500).send({
+      res.status(500).send({ 
         success: false,
         message: err.toString(),
         data: null
@@ -28,11 +28,8 @@ export class UserController {
   };
 
   public static async findOne (req: Request, res: Response): Promise<any> {
-    console.log(req.query.id);
-    console.log(req.params.id);
     try {
-      // const user = await User.findById(req.params.id, { password: 0 });
-      const user = [{id: 123, name: "john"}];
+      const user = await User.findOne({userName:req.body.username});
       if (!user) {
         return res.status(404).send({
           success: false,
@@ -41,7 +38,7 @@ export class UserController {
         });
       }
 
-      res.status(200).send({
+      res.status(200).json({
         success: true,
         data: user
       });
@@ -53,7 +50,26 @@ export class UserController {
       });
     }
   };
-
+public static async save (req: Request, res: Response): Promise<any> {
+    try {
+      const userData = req.body;
+      const user = await User.create(userData);
+      if (!user) {
+        return res.status(404).send({
+          success: false,
+          message: 'User not found',
+          data: null
+        });
+      }
+      res.json(user);
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: err.toString(),
+        data: null
+      });
+    }
+  };
   // public update = async (req: Request, res: Response): Promise<any> => {
   //   const { name, lastName, email, password } = req.body;
   //   try {

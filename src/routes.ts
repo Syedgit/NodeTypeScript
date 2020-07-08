@@ -9,6 +9,8 @@ export class RegisterRouteClass {
         app.post('/map', arrayController.mapData)
         //userController
         app.post('/user', UserController.findAll);
+        app.post('/users/authenticate', UserController.findOne);
+        app.post('/register', UserController.save);
         // you have to pass id as http://localhost.com/getUser?id=23
         app.get('/getUser', UserController.findOne);
         // you have to pass id as http://localhost.com/getUser/23

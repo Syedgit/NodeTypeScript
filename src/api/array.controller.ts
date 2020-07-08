@@ -104,9 +104,8 @@ export class arrayController {
   };
   public static async mapData (req: Request, res: Response): Promise<any>  {
     // sample data that should be pass to url http://localhost:9001/map
-    let response: any;
     try {
-      var arr = [{
+      const arr = [{
         id: 1,
         name: 'bill'
       }, {
