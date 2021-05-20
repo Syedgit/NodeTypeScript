@@ -53,6 +53,7 @@ export class UserController {
 public static async save (req: Request, res: Response): Promise<any> {
     try {
       const userData = req.body;
+      console.log("userData", userData);
       const user = await User.create(userData);
       if (!user) {
         return res.status(404).send({

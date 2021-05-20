@@ -1,6 +1,7 @@
 
 import {UserController} from './api/user/user.controller';
-import {arrayController} from './api/array.controller'
+import {arrayController} from './api/array.controller';
+import { AdminController} from './api/admin/admin.controller';
 export class RegisterRouteClass {
     public RegisterRoutes(app: any) {
         // ArrayController
@@ -11,10 +12,12 @@ export class RegisterRouteClass {
         app.post('/user', UserController.findAll);
         app.post('/users/authenticate', UserController.findOne);
         app.post('/register', UserController.save);
+        app.post('/api/saveClients', AdminController.save);
         // you have to pass id as http://localhost.com/getUser?id=23
         app.get('/getUser', UserController.findOne);
         // you have to pass id as http://localhost.com/getUser/23
         app.get('/getUser/:id', UserController.findOne);
+        app.get('/getClients' , AdminController.findAllClients);
     }
 
 }

@@ -1,7 +1,9 @@
 import {NextFunction, Request, Response, Router} from 'express';
+import express from "express";
 import * as bodyParser from 'body-parser';
 import {RegisterRouteClass} from "./routes";
-
+/* tslint:disable-next-line */
+import session from 'express-session';
 // this variable will be exported to be included as a middleware.
 class TRouter extends RegisterRouteClass {
     private TRouter: any;
@@ -9,8 +11,10 @@ class TRouter extends RegisterRouteClass {
     constructor() {
         super();
         this.TRouter = Router();
-        this.TRouter.use(bodyParser.json());
-        this.TRouter.use(bodyParser.urlencoded({extended: false}));
+        this.TRouter.use(express.json());
+        this.TRouter.use(express.urlencoded({extended: false}));
+        this.TRouter.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+
         const _this = this;
         this.TRouter.use(function(_req: Request, res: Response, next: NextFunction) {
             // CORS header
