@@ -9,7 +9,7 @@ export class RegisterRouteClass {
         app.post('/reduce', arrayController.reduceArray);
         app.post('/map', arrayController.mapData)
         //userController
-        app.post('/user', UserController.findAll);
+        app.get('/user', UserController.findAll);
         app.post('/users/authenticate', UserController.findOne);
         app.post('/register', UserController.save);
         app.post('/api/saveClients', AdminController.save);

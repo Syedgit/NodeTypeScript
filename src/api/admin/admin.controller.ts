@@ -31,6 +31,7 @@ export class AdminController {
     }
   };
   public static async save (req: Request, res: Response): Promise<any> {
+    console.log("GOT THE Service working>>>>>>>>>>>>>");
     try {
       console.log("CLIENTS POST >>>>>", req.body);
       const clientData = req.body;
