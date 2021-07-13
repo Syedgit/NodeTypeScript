@@ -18,6 +18,9 @@ export class RegisterRouteClass {
         // you have to pass id as http://localhost.com/getUser/23
         app.get('/getUser/:id', UserController.findOne);
         app.get('/getClients' , AdminController.findAllClients);
+        app.get('/api/getJobs' , AdminController.findAllJobs);
+        app.post('/api/saveContacts', AdminController.saveAddContacts);
+
     }
 
 }
