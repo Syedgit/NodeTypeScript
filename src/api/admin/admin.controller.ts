@@ -11,7 +11,6 @@ export class AdminController {
   public static async findAllClients (req: Request, res: Response): Promise<any>  {
     try {
       const clients = await Client.find();
-      console.log("CLIENTSSS>>>>>", clients);
       if (!clients) {
         return res.status(404).send({
           success: false,
@@ -56,14 +55,11 @@ export class AdminController {
     }
   }
   public static async save (req: Request, res: Response): Promise<any> {
-    console.log("GOT THE Service working>>>>>>>>>>>>>", req.body);
-    
     let _response: any;
     try {
       const _request = req.body;
       if(_request.selectedOption === "Client") {
         const client = await Client.create(_request);
-        console.log("CLIENTS POST >>>>>", req.body);
         if (!client) {
           return res.status(404).send({
             success: false,
